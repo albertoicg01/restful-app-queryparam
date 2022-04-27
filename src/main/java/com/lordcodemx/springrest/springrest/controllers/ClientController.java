@@ -1,5 +1,5 @@
 package com.lordcodemx.springrest.springrest.controllers;
-
+import com.lordcodemx.springrest.springrest.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +61,19 @@ public class ClientController {
     * If some of the conditions is not correct, return badRequests
     * */
 
+    @GetMapping("/clients")
+    public ResponseEntity<ClientResponse> getClient(
+            @RequestParam String name
+            ,@RequestParam String lastname
+            //,@RequestParam String bornDate
+            //,@RequestParam String clientId
+        ){
+
+        //Validations
+        ClientResponse client=new ClientResponse(name,lastname);
+        return new ResponseEntity<ClientResponse>(client,HttpStatus.OK);
+
+    }
 
 
 }//ClientController
