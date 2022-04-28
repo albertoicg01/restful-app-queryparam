@@ -65,13 +65,27 @@ public class ClientController {
     public ResponseEntity<ClientResponse> getClient(
             @RequestParam String name
             ,@RequestParam String lastname
-            //,@RequestParam String bornDate
-            //,@RequestParam String clientId
-        ){
+            ,@RequestParam String bornDate
+            ,@RequestParam String clientId
+            ) {
+        long clientId_long;
+
+
+        //Validation for clientId and parsing
+        if (clientId.length()>5){
+            clientId_long = Long.parseLong(clientId);
+        }else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
 
         //Validations
-        ClientResponse client=new ClientResponse(name,lastname);
-        return new ResponseEntity<ClientResponse>(client,HttpStatus.OK);
+        if(name.length()>3 && lastname.length()>2){
+            ClientResponse client=new ClientResponse(name,lastname,bornDate,clientId_long);
+            return new ResponseEntity<ClientResponse>(client,HttpStatus.OK);
+        }else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+
 
     }
 
